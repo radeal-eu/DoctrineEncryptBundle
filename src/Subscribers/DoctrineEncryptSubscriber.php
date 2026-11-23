@@ -239,8 +239,8 @@ class DoctrineEncryptSubscriber implements EventSubscriber
             // Check which operation to be used
             $encryptorMethod = $isEncryptOperation ? 'encrypt' : 'decrypt';
 
-            // Get real class name (handle proxies)
-            $realClass = DefaultProxyClassNameResolver::getClass($entity);
+            // Real class name (ORM 3.x uses native lazy objects, no proxy subclasses)
+            $realClass = $entity::class;
 
             // Get ReflectionClass of our entity
             $properties = $this->getClassProperties($realClass);
